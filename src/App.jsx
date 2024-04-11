@@ -11,24 +11,33 @@ const BackgroundGradient = styled.div`
   min-height: 100vh;
 `
 
-const Container = styled.div`
-  margin-inline: auto;
-  display: flex;
-  gap: 24px;
+const AppContainer = styled.div`
+  width: 1440px;
+  margin: 0 auto;
+  max-width:100%;
 `
+
+const MainContainer = styled.main`
+    display: flex;
+    gap: 24px;
+`
+
 function App() {
 
   return (
     <BackgroundGradient>
       <GlobalStyles />
-      <Header />
-      <Container>
-        <SideBar />
-        <Banner
-          text="The most complete gallery of space photos!"
-          backgroundImage={bannerBackground}
-        />
-      </Container>
+      <AppContainer>
+        <Header />
+        <MainContainer>
+          <SideBar />
+          <Banner
+            text="The most complete gallery of space photos!"
+            backgroundImage={bannerBackground}
+          />
+        </MainContainer>
+        
+      </AppContainer>
       
     </BackgroundGradient>
   )
