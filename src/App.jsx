@@ -4,6 +4,10 @@ import Header from "./components/Header"
 import SideBar from "./components/SideBar"
 import Banner from "./components/Banner"
 import bannerBackground from './assets/banner.png';
+import Gallery from "./components/Gallery"
+
+import photos from './photos.json';
+import { useState } from "react"
 
 const BackgroundGradient = styled.div`
   background: linear-gradient( 174.61deg, #041833 4.16%, #04244f 48%, #154580 96.76% ); 
@@ -22,7 +26,16 @@ const MainContainer = styled.main`
     gap: 24px;
 `
 
-function App() {
+const GalleryContent = styled.section`
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+`
+
+const App = () => {
+
+  const [galleryPhotos, setGalleryPhotos] = useState(photos);
+
 
   return (
     <BackgroundGradient>
@@ -31,10 +44,14 @@ function App() {
         <Header />
         <MainContainer>
           <SideBar />
-          <Banner
-            text="The most complete gallery of space photos!"
-            backgroundImage={bannerBackground}
-          />
+          <GalleryContent>
+            <Banner
+              text="The most complete gallery of space photos!"
+              backgroundImage={bannerBackground}
+            />
+            <Gallery photos={galleryPhotos}/>
+          </GalleryContent>
+          
         </MainContainer>
         
       </AppContainer>
