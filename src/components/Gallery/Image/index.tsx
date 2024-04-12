@@ -43,7 +43,7 @@ const Image = ({ photo, expanded = false }) => {
         <figcaption>
             <h3>{photo.title}</h3>
             <Footer>
-                <h4>{photo.fonte}</h4>
+                <h4>{photo.source}</h4>
                 <IconButton>
                     <img src="/icons/favorite.png" alt="Favorite icon" />
                 </IconButton>
