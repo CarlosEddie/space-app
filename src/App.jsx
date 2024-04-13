@@ -8,6 +8,7 @@ import Gallery from "./components/Gallery"
 
 import photos from './photos.json';
 import { useState } from "react"
+import ModalZoom from "./components/ModalZoom"
 
 const BackgroundGradient = styled.div`
   background: linear-gradient( 174.61deg, #041833 4.16%, #04244f 48%, #154580 96.76% ); 
@@ -35,6 +36,7 @@ const GalleryContent = styled.section`
 const App = () => {
 
   const [galleryPhotos, setGalleryPhotos] = useState(photos);
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
 
 
   return (
@@ -49,13 +51,11 @@ const App = () => {
               text="The most complete gallery of space photos!"
               backgroundImage={bannerBackground}
             />
-            <Gallery photos={galleryPhotos}/>
+            <Gallery whenPhotoSelected={photo => setSelectedPhoto(photo)} photos={galleryPhotos}/>
           </GalleryContent>
-          
         </MainContainer>
-        
       </AppContainer>
-      
+      <ModalZoom photo={selectedPhoto} onClose={() => setSelectedPhoto(null)}/>
     </BackgroundGradient>
   )
 }

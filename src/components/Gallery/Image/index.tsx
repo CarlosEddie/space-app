@@ -37,7 +37,7 @@ justify-content: space-between;
 align-items: center;
 `
 
-const Image = ({ photo, expanded = false }) => {
+const Image = ({ photo, expanded = false, whenZoomRequested }) => {
     return (<Figure $expanded={expanded} id={`photo-${photo.id}`}>
         <img src={photo.path} alt={photo.alt} />
         <figcaption>
@@ -47,7 +47,7 @@ const Image = ({ photo, expanded = false }) => {
                 <IconButton>
                     <img src="/icons/favorite.png" alt="Favorite icon" />
                 </IconButton>
-                {!expanded && <IconButton aria-hidden={expanded}>
+                {!expanded && <IconButton aria-hidden={expanded} onClick={() => whenZoomRequested(photo)}>
                     <img src="/icons/expand.png" alt="Expand icon" />
                 </IconButton>}
             </Footer>
