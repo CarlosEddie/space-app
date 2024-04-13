@@ -20,7 +20,7 @@ const ContainerImages = styled.section`
     gap: 24px;
 `
 
-const Gallery = ({ photos = [], whenPhotoSelected }) => {
+const Gallery = ({ photos = [], whenPhotoSelected, whenToggleFavorite }) => {
     return (
         <>
             <Tags />
@@ -30,6 +30,7 @@ const Gallery = ({ photos = [], whenPhotoSelected }) => {
                     <ContainerImages>
                         {photos.map(photo => <Image
                             whenZoomRequested={whenPhotoSelected}
+                            whenToggleFavorite={whenToggleFavorite}
                             key={photo.id} 
                             photo={photo} />)
                         }

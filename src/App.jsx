@@ -7,7 +7,7 @@ import bannerBackground from './assets/banner.png';
 import Gallery from "./components/Gallery"
 
 import photos from './photos.json';
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ModalZoom from "./components/ModalZoom"
 
 const BackgroundGradient = styled.div`
@@ -33,10 +33,29 @@ const GalleryContent = styled.section`
   flex-grow: 1;
 `
 
+
 const App = () => {
 
   const [galleryPhotos, setGalleryPhotos] = useState(photos);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+
+  const whenToggleFavorite = (photo) => {
+
+    if (photo.id === selectedPhoto?.id) {
+      setSelectedPhoto({
+        ...selectedPhoto,
+        favorite: !selectedPhoto.favorite
+      })
+    }
+
+    setGalleryPhotos(galleryPhotos.map(galleryPhoto => {
+      return {
+        ...galleryPhoto,
+        favorite: galleryPhoto.id === photo.id ? !photo.favorite : galleryPhoto.favorite
+      }
+    }));
+  }
+  
 
 
   return (
@@ -51,11 +70,11 @@ const App = () => {
               text="The most complete gallery of space photos!"
               backgroundImage={bannerBackground}
             />
-            <Gallery whenPhotoSelected={photo => setSelectedPhoto(photo)} photos={galleryPhotos}/>
+            <Gallery whenPhotoSelected={photo => setSelectedPhoto(photo)} whenToggleFavorite={whenToggleFavorite} photos={galleryPhotos}/>
           </GalleryContent>
         </MainContainer>
       </AppContainer>
-      <ModalZoom photo={selectedPhoto} onClose={() => setSelectedPhoto(null)}/>
+      <ModalZoom photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} whenToggleFavorite={whenToggleFavorite}/>
     </BackgroundGradient>
   )
 }

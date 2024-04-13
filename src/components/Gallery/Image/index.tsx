@@ -37,15 +37,18 @@ justify-content: space-between;
 align-items: center;
 `
 
-const Image = ({ photo, expanded = false, whenZoomRequested }) => {
+const Image = ({ photo, expanded = false, whenZoomRequested, whenToggleFavorite }) => {
+    
+    const favoriteIcon = photo.favorite ? '/icons/active-favorite.png' : '/icons/favorite.png'
+    
     return (<Figure $expanded={expanded} id={`photo-${photo.id}`}>
         <img src={photo.path} alt={photo.alt} />
         <figcaption>
             <h3>{photo.title}</h3>
             <Footer>
                 <h4>{photo.source}</h4>
-                <IconButton>
-                    <img src="/icons/favorite.png" alt="Favorite icon" />
+                <IconButton onClick={() => whenToggleFavorite(photo)}>
+                    <img src={favoriteIcon} alt="Favorite icon" />
                 </IconButton>
                 {!expanded && <IconButton aria-hidden={expanded} onClick={() => whenZoomRequested(photo)}>
                     <img src="/icons/expand.png" alt="Expand icon" />
