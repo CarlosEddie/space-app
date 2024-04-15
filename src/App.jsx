@@ -9,6 +9,7 @@ import Gallery from "./components/Gallery"
 import photos from './photos.json';
 import { useEffect, useState } from "react"
 import ModalZoom from "./components/ModalZoom"
+import Footer from "./components/Footer"
 
 const BackgroundGradient = styled.div`
   background: linear-gradient( 174.61deg, #041833 4.16%, #04244f 48%, #154580 96.76% ); 
@@ -37,7 +38,18 @@ const GalleryContent = styled.section`
 const App = () => {
 
   const [galleryPhotos, setGalleryPhotos] = useState(photos);
+  const [filter, setFilter] = useState('')
+  const [tag, setTag] = useState(0)
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+
+  useEffect(() => {
+    const filteredPhotos = photos.filter(photo => {
+      const tagFilter = !tag || photo.tagId === tag;
+      const titleFilter = !filter || photo.title.toLowerCase().includes(filter.toLowerCase())
+      return tagFilter && titleFilter
+    })
+    setGalleryPhotos(filteredPhotos)
+  }, [filter, tag])
 
   const whenToggleFavorite = (photo) => {
 
@@ -62,7 +74,7 @@ const App = () => {
     <BackgroundGradient>
       <GlobalStyles />
       <AppContainer>
-        <Header />
+        <Header setFilter={setFilter}/>
         <MainContainer>
           <SideBar />
           <GalleryContent>
@@ -70,9 +82,10 @@ const App = () => {
               text="The most complete gallery of space photos!"
               backgroundImage={bannerBackground}
             />
-            <Gallery whenPhotoSelected={photo => setSelectedPhoto(photo)} whenToggleFavorite={whenToggleFavorite} photos={galleryPhotos}/>
+            <Gallery whenPhotoSelected={photo => setSelectedPhoto(photo)} whenToggleFavorite={whenToggleFavorite} photos={galleryPhotos} setTag={setTag}/>
           </GalleryContent>
         </MainContainer>
+        <Footer />
       </AppContainer>
       <ModalZoom photo={selectedPhoto} onClose={() => setSelectedPhoto(null)} whenToggleFavorite={whenToggleFavorite}/>
     </BackgroundGradient>

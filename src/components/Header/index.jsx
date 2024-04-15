@@ -10,10 +10,10 @@ const StyledHeader = styled.header`
     }
 `
 
-const Header = () => {
+const Header = ({ setFilter}) => {
     return (<StyledHeader>
         <img src="/images/logo.png" alt="" />
-        <TextField />
+        <TextField setFilter={setFilter}/>
     </StyledHeader>)
 }
 
